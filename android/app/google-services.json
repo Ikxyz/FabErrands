@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "696063099153",
+    "firebase_url": "https://faberrands.firebaseio.com",
+    "project_id": "faberrands",
+    "storage_bucket": "faberrands.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696063099153:android:908f7ebb57d8a5ff",
+        "android_client_info": {
+          "package_name": "ng.aceapp.fab_errands"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696063099153-2ths2k9r8tqs8i3qdlvsr6kk1j8pn696.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ng.aceapp.fab_errands",
+            "certificate_hash": "9a2fe8645c53c894717176dedb55a8f78c523cab"
+          }
+        },
+        {
+          "client_id": "696063099153-kdqfqp6mt3ripifvdvupf0j80a2or6pj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnA6VP4VwFx1h4iy9S0KyByrD9HRMX6bs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696063099153-kdqfqp6mt3ripifvdvupf0j80a2or6pj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
