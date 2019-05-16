@@ -3,32 +3,22 @@ import 'package:fab_errands/routes/home.dart';
 import 'import.dart';
 
 class FadErrand extends StatelessWidget {
-
-
-  
-  
-  
-  
   bool _isAuth;
-  
-  
+
   Widget _initialRoute;
 
-
-
-
-
   FadErrand(this._isAuth) {
-    _initialRoute = _isAuth ? HomeRoute(): LoginRoute();
+    _initialRoute = _isAuth ? HomeRoute() : LoginRoute();
   }
-
-
-
 
   Widget build(BuildContext context) {
     _widget() => MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: _buildTheme(),
+          theme: _buildTheme().copyWith(
+            brightness: Brightness.light,
+            buttonColor: Colors.teal,
+          ),
+          color: Colors.teal,
           home: _initialRoute,
           onGenerateRoute: (RouteSettings settings) {
             if (settings.name == '/home') {
@@ -76,20 +66,30 @@ class FadErrand extends StatelessWidget {
 ThemeData _buildTheme() {
   final ThemeData base = ThemeData.light();
   return base.copyWith(
-    accentColor: Colors.teal.shade900,
-    primaryColor: Colors.teal.shade900,
-    //buttonColor: Colors.brown.shade900,
+    accentColor: Colors.teal,
+    primaryColor: Colors.teal,
+    buttonColor: Colors.teal,
     scaffoldBackgroundColor: Colors.white,
     cardColor: Colors.white,
     textSelectionColor: Colors.tealAccent,
     errorColor: Colors.red,
-    buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.accent),
-    //primaryIconTheme: base.iconTheme.copyWith(color: Colors.brown.shade900),
+    buttonTheme: ButtonThemeData(
+      shape: StadiumBorder(),
+      colorScheme: base.colorScheme.copyWith(primary: Colors.teal),
+      textTheme: ButtonTextTheme.primary,
+      buttonColor: Colors.teal,
+    ),
+    primaryIconTheme: base.iconTheme.copyWith(color: Colors.teal),
     textTheme: _buildTextTheme(base.textTheme),
     primaryTextTheme: _buildTextTheme(base.primaryTextTheme),
     accentTextTheme: _buildTextTheme(base.accentTextTheme),
-    indicatorColor:Colors.teal,
-    iconTheme: _customIconTheme(base.iconTheme),
+    indicatorColor: Colors.teal,
+    backgroundColor: Colors.teal,
+    accentIconTheme:
+        _customIconTheme(base.iconTheme).copyWith(color: Colors.teal),
+    iconTheme: _customIconTheme(base.iconTheme).copyWith(
+      color: Colors.teal,
+    ),
     bottomAppBarColor: Colors.white,
   );
 }

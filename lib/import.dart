@@ -1,24 +1,33 @@
-export 'package:fab_errands/app.dart';
-export 'package:fab_errands/classes/auth.dart';
-export 'package:fab_errands/classes/classes.dart';
-export 'package:fab_errands/classes/custom-clip.dart';
-export 'package:fab_errands/classes/message_class.dart';
-export 'package:fab_errands/classes/notification_class.dart';
-export 'package:fab_errands/classes/payment_class.dart';
-export 'package:fab_errands/classes/start_up.dart';
-export 'package:fab_errands/classes/user_contact_class.dart';
-export 'package:fab_errands/classes/user_profile_class.dart';
-export 'package:fab_errands/trigger/event.dart';
-export 'package:fab_errands/classes/route_animations.dart';
-export 'package:fab_errands/models/app.dart';
-export 'package:fab_errands/styles/styles.dart';
-export 'package:fab_errands/routes/login.dart';
-export 'package:fab_errands/routes/register.dart';
-export 'package:fab_errands/routes/search_screen.dart';
-export 'package:fab_errands/routes/profile_screen.dart';
-export 'package:fab_errands/trigger/event.dart';
-export 'package:fab_errands/routes/home.dart';
+export 'app.dart';
+export 'classes/auth.dart';
+export 'classes/classes.dart';
+export 'classes/custom-clip.dart';
+export 'classes/message_class.dart';
+export 'classes/notification_class.dart';
+export 'classes/payment_class.dart';
 export 'classes/start_up.dart';
+export 'classes/user_contact_class.dart';
+export 'classes/user_profile_class.dart';
+export 'trigger/event.dart';
+export 'classes/route_animations.dart';
+export 'models/app.dart';
+export 'styles/styles.dart';
+export 'routes/login.dart';
+export 'routes/register.dart';
+export 'routes/search_screen.dart';
+export 'routes/profile_screen.dart';
+export 'trigger/event.dart';
+export 'routes/home.dart';
+export 'classes/start_up.dart';
+export 'models/app.dart';
+
+///local components
+///
+export 'components/bottom_navigation.dart';
+export 'components/drawer.dart';
+export 'components/tmp_errand_feed.dart';
+export 'components/errand_feed.dart';
+export 'components/search_bar.dart';
 
 /// Platform APIs
 export 'dart:convert';
@@ -37,12 +46,13 @@ export 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 final auth = FirebaseAuth.instance;
 final db = Firestore.instance;
 void enableOfflineMode() {
   db.settings(persistenceEnabled: true);
-
 }
 
 FirebaseUser firebaseUser;
@@ -50,3 +60,13 @@ final never = auth.onAuthStateChanged.listen((x) {
   firebaseUser = x;
 });
 FirebaseUser get userAuth => firebaseUser;
+
+Widget isLoading(context) => Container(
+      width: 50,
+      height: 50,
+      child: Center(
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+        ),
+      ),
+    );

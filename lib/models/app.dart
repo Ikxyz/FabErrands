@@ -58,17 +58,26 @@ class $AppAuthState extends Bloc<event$.isAutheticated, dynamic> {
   }
 }
 
-class StartupState$ extends Bloc<event$.startUp, dynamic> {
+class $AppState extends Bloc<event$.window, dynamic> {
   @override
-  get initialState => null;
-  FirebaseUser _user;
-  get _startup => StartupClass();
+  get initialState => _windowKey;
+  GlobalKey<ScaffoldState> _windowKey = GlobalKey<ScaffoldState>();
 
-  StartupState$() {}
   @override
-  Stream<dynamic> mapEventToState(event$.startUp event) async* {
-    
+  Stream mapEventToState(event$.window events) {
+    if (events == event$.window.add) {}
+    if (events == event$.window.update) {}
+    if (events == event$.window.get) {
+      return Stream.fromFuture(Future.value(_windowKey));
+    }
+    return Stream.fromFuture(Future.value(_windowKey));
   }
- 
-  Stream<List<StartupClass>> myList() async* {}
+
+  GlobalKey<ScaffoldState> window() {
+    return _windowKey;
+  }
+
+  GlobalKey<ScaffoldState> addWindowState() {
+    return _windowKey;
+  }
 }

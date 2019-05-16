@@ -1,2 +1,3 @@
-enum isAutheticated {listen,userData,signOut}
-enum startUp {list,add,edit}
+enum isAutheticated { listen, userData, signOut }
+enum startUp { list, add, edit }
+enum window { update, add, get }
