@@ -22,14 +22,16 @@ export 'classes/start_up.dart';
 export 'models/app.dart';
 
 ///local components
-///
-export 'components/bottom_navigation.dart';
+
 export 'components/drawer.dart';
 export 'components/tmp_errand_feed.dart';
 export 'components/errand_feed.dart';
-export 'components/search_bar.dart';
+export 'components/search_errand_by_location_bar.dart';
+export 'components/tmp_active_errand_feed.dart';
+export 'components/active_errand_feed.dart';
 
 /// Platform APIs
+
 export 'dart:convert';
 export 'dart:math';
 

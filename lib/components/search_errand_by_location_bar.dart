@@ -1,9 +1,9 @@
 import 'package:fab_errands/import.dart';
 
 // ignore: must_be_immutable
-class SearchBarComponent extends StatelessWidget {
+class SearchErrandByLocationBarComponent extends StatelessWidget {
   var _scaffoldKey;
-  SearchBarComponent(this._scaffoldKey) {}
+  SearchErrandByLocationBarComponent(this._scaffoldKey) {}
   @override
   Widget build(BuildContext context) {
     return Container(

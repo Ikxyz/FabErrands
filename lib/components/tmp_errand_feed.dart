@@ -1,3 +1,5 @@
+import 'package:fab_errands/import.dart';
+import 'package:fab_errands/models/app.dart';
 import 'package:flutter/material.dart';
 
 class TemErrandFeedComponent extends StatelessWidget {
@@ -33,26 +35,26 @@ class TemErrandFeedComponent extends StatelessWidget {
                           fontSize: 14,
                         ),
                   ),
-                  trailing: InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          Icon(
-                            Icons.favorite_border,
-                            color: Colors.red,
-                          ),
-                          Expanded(
-                            child: Text('2k'),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+//                  trailing: InkWell(
+//                    onTap: () {},
+//                    child: Padding(
+//                      padding: const EdgeInsets.all(8.0),
+//                      child: Column(
+//                        crossAxisAlignment: CrossAxisAlignment.center,
+//                        mainAxisAlignment: MainAxisAlignment.center,
+//                        mainAxisSize: MainAxisSize.max,
+//                        children: <Widget>[
+//                          Icon(
+//                            Icons.favorite_border,
+//                            color: Colors.red,
+//                          ),
+//                          Expanded(
+//                            child: Text('2k'),
+//                          )
+//                        ],
+//                      ),
+//                    ),
+//                  ),
                 ),
               ),
             ),
@@ -84,14 +86,18 @@ class TemErrandFeedComponent extends StatelessWidget {
                         .subhead
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  FlatButton.icon(
-                    icon: Icon(Icons.location_on),
-                    onPressed: () {},
-                    label: Text(
-                      'view in map',
-                      style: Theme.of(context).textTheme.subhead,
-                    ),
-                  ),
+//                  FlatButton.icon(
+//                    icon: Icon(Icons.location_on),
+//                    onPressed: () {
+//                      final m = $AppNavigationState();
+//                      m.currentIndex(2);
+//                      m.dispatch(navigationBarEvent.get);
+//                    },
+//                    label: Text(
+//                      'view in map',
+//                      style: Theme.of(context).textTheme.subhead,
+//                    ),
+//                  ),
                 ],
               ),
             )

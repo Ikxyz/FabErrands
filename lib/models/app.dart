@@ -81,3 +81,21 @@ class $AppState extends Bloc<event$.window, dynamic> {
     return _windowKey;
   }
 }
+
+class $AppNavigationState extends Bloc<event$.navigationBarEvent, int> {
+  @override
+  int get initialState => 0;
+  int _currentState = 0;
+
+  @override
+  Stream<int> mapEventToState(event$.navigationBarEvent event) async* {
+    print('Me too oooo $_currentState');
+    yield _currentState;
+  }
+
+  void currentIndex(int e) {
+    _currentState = e;
+    mapEventToState(navigationBarEvent.get);
+    print('I have done my job $_currentState');
+  }
+}
