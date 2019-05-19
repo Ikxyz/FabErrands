@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class UsersProfile {
+class UsersProfileClass {
   String firstName,
       lastName,
       email,
@@ -16,17 +16,17 @@ class UsersProfile {
       identification,
       utilityBill,
       uid;
-  int time,likes,followers,following;
+  int time, likes, followers, following, rating;
   double latitude, longitude;
   bool isAdmin, isAgent, isMember, isDev, isVerified, isOrg;
   dynamic online;
-  UsersProfile(
+  UsersProfileClass(
       {@required this.firstName,
       @required this.lastName,
       @required this.address,
-      @required this.tel,
+      @required this.email,
       this.state,
-      this.email,
+      this.tel,
       this.retypePwd,
       this.pwd,
       this.isAdmin,
@@ -42,14 +42,18 @@ class UsersProfile {
       this.utilityBill,
       this.uid,
       this.time,
-      this.online,this.likes,this.followers,this.following,
+      this.rating,
+      this.online,
+      this.likes,
+      this.followers,
+      this.following,
       this.isVerified,
       this.latitude,
       this.longitude});
 
-  factory UsersProfile.toObject(Map map) {
+  factory UsersProfileClass.fromJson(Map map) {
     if (map == null) return null;
-    return UsersProfile(
+    return UsersProfileClass(
         firstName: map['firstName'],
         lastName: map['lastName'],
         email: map['email'],
@@ -62,6 +66,7 @@ class UsersProfile {
         isAgent: map['isAgent'],
         isDev: map['isDev'],
         isOrg: map['isOrg'],
+        rating: map['rating'],
         isMember: map['isMember'],
         city: map['city'],
         country: map['country'],
@@ -71,10 +76,46 @@ class UsersProfile {
         utilityBill: map['utility_bill'],
         uid: map['uid'],
         time: map['time'],
-       likes: map['likes'], followers: map['followers'], following: map['following'],
+        likes: map['likes'],
+        followers: map['followers'],
+        following: map['following'],
         latitude: map['latitude'],
         longitude: map['longitude'],
         isVerified: map['isVerified'],
         online: map['online']);
+  }
+
+  static Map<String, dynamic> toJson(UsersProfileClass e) {
+    return {
+      'firstName': e.firstName,
+      'lastName': e.lastName,
+      'address': e.address,
+      'email': e.email,
+      'state': e.state,
+      'tel': e.tel,
+      'retypePwd': e.retypePwd,
+      'pwd': e.pwd,
+      'isAdmin': e.isAdmin,
+      'isAgent': e.isAgent,
+      'isOrg': e.isOrg,
+      'isDev': e.isDev,
+      'isMember': e.isMember,
+      'city': e.city,
+      'country': e.country,
+      'zip': e.zip,
+      'passport': e.passport,
+      'identification': e.identification,
+      'utilityBill': e.utilityBill,
+      'uid': e.uid,
+      'time': e.time,
+      'rating': e.rating,
+      'online': e.online,
+      'likes': e.likes,
+      'followers': e.followers,
+      'following': e.following,
+      'isVerified': e.isVerified,
+      'latitude': e.latitude,
+      'longitude': e.longitude
+    };
   }
 }

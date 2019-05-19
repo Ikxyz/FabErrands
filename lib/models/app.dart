@@ -37,11 +37,11 @@ class $AppAuthState extends Bloc<event$.isAutheticated, dynamic> {
     }
   }
 
-  Stream<UsersProfile> _userData(user) async* {
+  Stream<UsersProfileClass> _userData(user) async* {
     if (user != null) {
       final data =
           await Firestore().collection('user').document(user.uid).get();
-      yield UsersProfile.toObject(data.data);
+      yield UsersProfileClass.fromJson(data.data);
     }
   }
 

@@ -9,7 +9,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   _ProfileScreenState() {}
   _getUser() async {
-    UsersProfile user;
+    UsersProfileClass user;
     final mUser = await FirebaseAuth.instance.currentUser();
     if (mUser == null) {
       return print('no user');
@@ -21,7 +21,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
     print('found it: ${result.data}');
 
-    user = UsersProfile.toObject(Map<String, dynamic>.from(result.data));
+    user = UsersProfileClass.fromJson(Map<String, dynamic>.from(result.data));
     return user;
   }
 
@@ -36,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             if (doc.hasData) {
               print('Data found ::: ${doc.data}');
               if (doc.data != null) {
-                UsersProfile user = doc.data;
+                UsersProfileClass user = doc.data;
                 return Container(child: new QuickActions(user));
               }
             }
@@ -57,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 // ignore: must_be_immutable
 class QuickActions extends StatelessWidget {
-  UsersProfile user;
+  UsersProfileClass user;
   QuickActions(this.user) {}
   Widget _buildAvatar(user) {
     if (user == null) {

@@ -89,7 +89,7 @@ class Auth {
   }
 
   dynamic createAccount(Map<String, dynamic> data) async {
-    final _userProfile = UsersProfile.toObject(data);
+    final _userProfile = UsersProfileClass.fromJson(data);
     if (data == null) {
       severResult['success'] = false;
       severResult['message'] = 'null data';

@@ -13,7 +13,7 @@ class RegistrationRoute extends StatefulWidget {
 class _RegistrationRouteState extends State<RegistrationRoute> {
   final _auth = Auth();
   final _userProfile =
-      UsersProfile(firstName: null, lastName: null, tel: null, address: null);
+      UsersProfileClass(firstName: null, lastName: null, tel: null, address: null);
   final _regKey = GlobalKey<FormState>();
   final _scaffoldState = GlobalKey<ScaffoldState>();
 
