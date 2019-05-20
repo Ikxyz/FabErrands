@@ -40,7 +40,13 @@ String isEmail(val) {
 /// return an error message if value does not pass the validation
 ///validation requires val: not equal null and length must be more or equal to 10 characters
 String isNumber(val) {
-  return val.toString().length >= 10 && val.toString().isNotEmpty
+  try {
+    val = int.parse(val.toString());
+  } on Exception catch (e) {
+    val = 0;
+  }
+
+  return val > 100 && val.toString().isNotEmpty
       ? null
       : 'Telepnone number mush be 10 digit';
 }
@@ -125,11 +131,10 @@ Widget asyncWhileWaiting(AsyncSnapshot snapshot, @required Widget fun,
         return fun;
       }
     } else if (snapshot.data.runtimeType == DocumentSnapshot) {
-      if(snapshot.data.exists){
-
-      return fun;
-      }else{
-         return Container(
+      if (snapshot.data.exists) {
+        return fun;
+      } else {
+        return Container(
           child: Center(
             child: Text(
               emptyListMsg,
@@ -146,7 +151,11 @@ Widget asyncWhileWaiting(AsyncSnapshot snapshot, @required Widget fun,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
-          child: Text('${snapshot.error.toString()}',style: TextStyle(),textAlign: TextAlign.center,),
+          child: Text(
+            '${snapshot.error.toString()}',
+            style: TextStyle(),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

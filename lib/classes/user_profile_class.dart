@@ -21,10 +21,11 @@ class UsersProfileClass {
   bool isAdmin, isAgent, isMember, isDev, isVerified, isOrg;
   dynamic online;
   UsersProfileClass(
-      {@required this.firstName,
-      @required this.lastName,
+      {@required this.email,
       @required this.address,
-      @required this.email,
+      this.uid,
+      this.firstName,
+      this.lastName,
       this.state,
       this.tel,
       this.retypePwd,
@@ -40,7 +41,6 @@ class UsersProfileClass {
       this.passport,
       this.identification,
       this.utilityBill,
-      this.uid,
       this.time,
       this.rating,
       this.online,

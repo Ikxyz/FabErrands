@@ -62,9 +62,9 @@ class TemErrandFeedComponent extends StatelessWidget {
               margin: EdgeInsets.only(top: 10),
               padding: EdgeInsets.all(10.0),
               child: Text(
-                'Hey i '
-                'want to help me get some drocrys from the mall am really '
-                'tried, ',
+                '''Hey i 
+                want to help me get some shopping from the mall am really 
+                tried, ''',
                 style: Theme.of(context).textTheme.subhead,
               ),
             ),

@@ -109,12 +109,13 @@ class Auth {
             'pwd': _userProfile.pwd.toString()
           }).catchError((err) {
         print(err);
-      }); 
+      });
       Map<String, dynamic> extract =
           Map<String, dynamic>.from(jsonDecode(res.body));
       print('Decode msg: $extract');
+
       assert(extract['success']);
- 
+
       _user = await _auth.signInWithEmailAndPassword(
           email: _userProfile.email.toString(),
           password: _userProfile.pwd.toString());

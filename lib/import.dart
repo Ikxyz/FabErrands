@@ -20,6 +20,8 @@ export 'trigger/event.dart';
 export 'routes/home.dart';
 export 'classes/start_up.dart';
 export 'models/app.dart';
+export 'classes/errand_class.dart';
+export 'routes/post_errand.dart';
 
 ///local components
 

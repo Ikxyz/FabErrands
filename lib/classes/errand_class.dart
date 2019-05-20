@@ -3,14 +3,12 @@ import 'package:fab_errands/import.dart';
 class ErrandClass {
   String title, errandLocation, errandDesc;
   UsersProfileClass owner, runner;
-  dynamic image,
-      amount,
-      tag,
+  dynamic amount,
       postTimeStamp,
       acceptTimeStamp,
       terminateTimeStamp,
       completeTimeStamp;
-
+  List<String> tag, image = [];
   ErrandClass(
       {this.title,
       this.errandLocation,

@@ -31,11 +31,9 @@ class FadErrand extends StatelessWidget {
               return SlideLeftRoute(builder: (context) {
                 return Offstage();
               });
-            } else if (settings.name.startsWith('startup')) {
-              final param = int.parse(settings.name.split("/")[1]);
-
-              return FadeInRoute(builder: (context) {
-                return Offstage();
+            } else if (settings.name.startsWith('/post/errand')) {
+              return SlideLeftRoute(builder: (context) {
+                return PostErrandComponent();
               });
             } else if (settings.name == '/addStartup') {
               return FadeInRoute(builder: (context) {

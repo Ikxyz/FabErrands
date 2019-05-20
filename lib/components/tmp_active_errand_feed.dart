@@ -77,7 +77,7 @@ class TmpActiveErrandFeedComponent extends StatelessWidget {
                     label: Text('Complete Errand'),
                   ),
                   FlatButton.icon(
-                    icon: Icon(Icons.check),
+                    icon: Icon(Icons.clear),
                     textColor: Colors.red,
                     onPressed: () {},
                     label: Text('Terminate Errand'),

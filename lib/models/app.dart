@@ -99,3 +99,19 @@ class $AppNavigationState extends Bloc<event$.navigationBarEvent, int> {
     print('I have done my job $_currentState');
   }
 }
+
+class $AppPostErrandTag extends Bloc<Map<String, dynamic>, List<String>> {
+  @override
+  List<String> get initialState => ['food', 'shoe'];
+
+  @override
+  Stream<List<String>> mapEventToState(data) async* {
+    if (data['type'] == 'add') {
+      currentState.add(data['data']);
+    } else if (data['type'] == 'remove') {
+      currentState.remove(data['data']);
+    }
+    yield currentState;
+    print('Tag updaetd $currentState');
+  }
+}

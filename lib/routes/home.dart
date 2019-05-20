@@ -73,7 +73,9 @@ class _HomeRouteState extends State<HomeRoute> {
   int _currentPageIndex = 0;
 
   get _floatingActionButton => FloatingActionButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).pushNamed('/post/errand');
+      },
       mini: true,
       backgroundColor: Theme.of(context).indicatorColor,
       child: Icon(
