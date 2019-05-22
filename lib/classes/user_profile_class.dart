@@ -118,4 +118,41 @@ class UsersProfileClass {
       'longitude': e.longitude
     };
   }
+
+    String toStr() {
+ 
+    return ''' 
+
+     firstName: ${this.firstName},
+        lastName: ${this.lastName},
+        email: ${this.email},
+        pwd: ${this.pwd},
+        retypePwd: ${this.retypePwd},
+        tel: ${this.tel},
+        state: ${this.state},
+        address: ${this.address},
+        isAdmin: ${this.isAdmin},
+        isAgent: ${this.isAgent},
+        isDev: ${this.isDev},
+        isOrg: ${this.isOrg},
+        rating: ${this.rating},
+        isMember: ${this.isMember},
+        city: ${this.city},
+        country: ${this.country},
+        zip: ${this.zip},
+        passport: ${this.passport},
+        identification: ${this.identification},
+        utilityBill: ${this.utilityBill},
+        uid: ${this.uid},
+        time: ${this.time},
+        likes: ${this.likes},
+        followers: ${this.followers},
+        following: ${this.following},
+        latitude: ${this.latitude},
+        longitude: ${this.longitude},
+        isVerified: ${this.isVerified},
+        online: ${this.online}
+               
+     ''';
+  }
 }

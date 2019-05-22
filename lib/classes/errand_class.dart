@@ -2,7 +2,7 @@ import 'package:fab_errands/import.dart';
 
 class ErrandClass {
   String title, errandLocation, errandDesc;
-  UsersProfileClass owner, runner;
+  Map<String,dynamic> owner, runner;
   dynamic amount,
       postTimeStamp,
       acceptTimeStamp,
@@ -42,5 +42,18 @@ class ErrandClass {
       'amount': e.amount,
       'tag': e.tag,
     };
+  }
+
+  String toString() {
+    return '''
+        title: ${this.title}
+        errandDesc: ${this.errandDesc}
+        errandLocation: ${this.errandLocation}
+        amount: ${this.amount}
+        image: ${this.image}
+        tag: ${this.tag}
+        owner: ${this.owner}
+        runner: ${this.runner}
+        ''';
   }
 }

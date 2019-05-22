@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math' as math;
+import 'package:fab_errands/classes/errand_class.dart';
 import 'package:path/path.dart' as $path;
 import 'package:flutter/cupertino.dart';
 import 'package:fab_errands/import.dart';
@@ -18,10 +19,11 @@ class _PostErrandComponentState extends State<PostErrandComponent> {
   TextEditingController _errandTagInputController = TextEditingController();
   GlobalKey<FormState> _errandTagFromKey = GlobalKey<FormState>();
   GlobalKey<FormState> _errandFormKey = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
   $AppPostErrandTag _$appPostErrandTag = $AppPostErrandTag();
 
   _PostErrandComponentState() {
-    initializeErrandClass();
+    _initializeErrandClass();
   }
   @override
   void initState() {
@@ -32,6 +34,7 @@ class _PostErrandComponentState extends State<PostErrandComponent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldState,
       appBar: AppBar(
         title: Text(
           'Post Errand',
@@ -76,6 +79,7 @@ class _PostErrandComponentState extends State<PostErrandComponent> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: _errandFormKey,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -140,31 +144,37 @@ class _PostErrandComponentState extends State<PostErrandComponent> {
                   ),
                 ),
                 new Container(
-                  height: 40.0,
                   width: getWidth(context),
                   child: Wrap(
                     children: <Widget>[
                       Container(
-                        height: 80,
-                        child: BlocBuilder(
-                          bloc: $AppPostErrandTag(),
-                          builder: (BuildContext context, List<String> data) {
+                          child: StreamBuilder(
+                        stream: _$appPostErrandTag.state,
+                        builder: (BuildContext context, AsyncSnapshot data) {
+                          print('New Data O ${data.data}');
+                          if (data.hasData) {
                             return Wrap(
-                              children: data.map((e) {
-                                return Chip(
-                                  label: Text(e.toString()),
-                                  deleteIconColor: Colors.white,
-                                  labelStyle: TextStyle(color: Colors.white),
-                                  backgroundColor: Colors.grey,
-                                  onDeleted: () {
-                                    _errandClass.tag.remove(e);
-                                  },
-                                );
-                              }).toList(),
+                              spacing: 5,
+                              crossAxisAlignment: WrapCrossAlignment.start,
+                              direction: Axis.horizontal,
+                              children: [
+                                ...data.data.map((e) {
+                                  return Chip(
+                                    label: Text(e.toString()),
+                                    deleteIconColor: Colors.white,
+                                    labelStyle: TextStyle(color: Colors.white),
+                                    backgroundColor: Colors.grey,
+                                    onDeleted: () {
+                                      _onDeleteErrandTag(e);
+                                    },
+                                  );
+                                }).toList()
+                              ],
                             );
-                          },
-                        ),
-                      ),
+                          }
+                          return isLoading(context);
+                        },
+                      )),
                     ],
                   ),
                 ),
@@ -186,7 +196,7 @@ class _PostErrandComponentState extends State<PostErrandComponent> {
 
 //#region Method Section
 
-  void initializeErrandClass() async {
+  void _initializeErrandClass() async {
     _errandClass = new ErrandClass(
         runner: null,
         owner: null,
@@ -197,44 +207,73 @@ class _PostErrandComponentState extends State<PostErrandComponent> {
         title: null,
         postTimeStamp: null,
         tag: []);
-    await _fecthUser();
+    _fecthUser();
   }
 
   void _postErrand() async {
+    _progress(true);
     var _state = _errandFormKey.currentState;
-    if (_state.validate() == false) return;
+    if (_state.validate() == false) {
+      _progress(false);
+      return null;
+    }
+
+    // if (_errandClass.tag.length < 1) {
+    //   showSnackBar(_scaffoldState, 'Must enter at least one tag');
+    //   _progress(false);
+    //   return null;
+    // }
 
     _state.save();
+    print(_errandClass.toString());
+    _errandClass.tag = [..._errandClass.tag, ..._errandClass.title.split(' ')];
 
-    print('Errnad Tag: ${_errandClass.toString()}');
-    return;
+    try {
+      await db
+          .collection('errand')
+          .document(getID(length: 26))
+          .setData(ErrandClass.toJson(_errandClass));
+      Navigator.of(context).pop();
+    } catch (err) {
+      showSnackBar(_scaffoldState, err.message);
+
+      _progress(false);
+      print(err);
+    }
+
+    return null;
   }
 
   void _fecthUser() async {
-    final _user = userAuth;
-    if (_user == null) return;
-    UsersProfileClass _userInfo = (() async {
-      final e = await db.collection('user').document(_user.uid).get();
-      return UsersProfileClass.fromJson(Map<String, dynamic>.from(e.data));
-    }) as UsersProfileClass;
+    final _user = await auth.currentUser();
+    if (_user == null) return null;
 
-    _errandClass.owner = UsersProfileClass(
+    final _owner = UsersProfileClass(
       email: _user.email,
       uid: _user.uid,
-      address: _userInfo.address,
+      address: null,
     );
+    _errandClass.owner = UsersProfileClass.toJson(_owner);
+    print('auth complete ${_errandClass.owner}');
   }
 
   void _addErrandTag() {
     var _state = _errandTagFromKey.currentState;
-    if (_state.validate() == false) return;
+    if (_state.validate() == false &&
+        _$appPostErrandTag.currentState.length >= _$appPostErrandTag.max)
+      return;
 
     _state.save();
+    _errandClass.tag = _$appPostErrandTag.currentState;
+    _errandTagInputController.clear();
     return;
   }
 
-  void onDeleteErrandTag(e) {
-    _$appPostErrandTag.mapEventToState({'type': 'remove', 'data': e});
+  void _onDeleteErrandTag(e) {
+    e = e.trim().toLowerCase();
+    setState(() {
+      _$appPostErrandTag.dispatch({'type': 'remove', 'data': e});
+    });
   }
 
   void _addImage() async {
@@ -267,12 +306,13 @@ class _PostErrandComponentState extends State<PostErrandComponent> {
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.text,
         textCapitalization: TextCapitalization.sentences,
-        maxLength: 260,
+        maxLength: 500,
         maxLines: 5,
         onSaved: (val) {
           _errandClass.errandDesc = val;
         },
         autocorrect: true,
+        validator: isNotNull,
         decoration: const InputDecoration(
           filled: true,
           isDense: true,
@@ -299,6 +339,8 @@ class _PostErrandComponentState extends State<PostErrandComponent> {
   Widget _errandAmountTextInput() => TextFormField(
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.number,
+        minLines: 1,
+        maxLength: 5,
         onSaved: (val) {
           _errandClass.amount = val;
         },
@@ -314,18 +356,18 @@ class _PostErrandComponentState extends State<PostErrandComponent> {
         textInputAction: TextInputAction.next,
         controller: _errandTagInputController,
         keyboardType: TextInputType.text,
-        onSaved: (val) {
+        onSaved: (val) async {
           val = val.trim().toLowerCase();
-          // if (_errandClass.tag.contains(val)) return;
-          _$appPostErrandTag.mapEventToState({'type': 'add', 'data': val});
-          print('done mine');
+          if (_$appPostErrandTag.currentState.contains(val)) return;
+          setState(() {
+            _$appPostErrandTag.dispatch({'type': 'add', 'data': val});
+          });
         },
         textCapitalization: TextCapitalization.none,
         decoration: const InputDecoration(
           isDense: true,
           hintText: "Enter tag",
         ),
-        validator: isNotNull,
       );
 
 //endregion  Widget Section

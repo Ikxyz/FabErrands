@@ -60,11 +60,8 @@ void enableOfflineMode() {
 }
 
 FirebaseUser firebaseUser;
-final never = auth.onAuthStateChanged.listen((x) {
-  firebaseUser = x;
-});
-FirebaseUser get userAuth => firebaseUser;
-
+ 
+ 
 Widget isLoading(context) => Container(
       width: 50,
       height: 50,

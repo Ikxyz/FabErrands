@@ -102,12 +102,17 @@ class $AppNavigationState extends Bloc<event$.navigationBarEvent, int> {
 
 class $AppPostErrandTag extends Bloc<Map<String, dynamic>, List<String>> {
   @override
-  List<String> get initialState => ['food', 'shoe'];
+  List<String> get initialState => [];
+  get max => 10;
 
   @override
   Stream<List<String>> mapEventToState(data) async* {
     if (data['type'] == 'add') {
-      currentState.add(data['data']);
+      if (data['data'] != null && currentState.length <= max) {
+        currentState.add(data['data']);
+      } else {
+        print('null val or limit reached');
+      }
     } else if (data['type'] == 'remove') {
       currentState.remove(data['data']);
     }
